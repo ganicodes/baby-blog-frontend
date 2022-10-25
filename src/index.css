@@ -1,13 +1,128 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+:root {
+  /* --clr-bg: #b9e7e7; */
+  /* --clr-bg: #a8f0e1; */
+  /* --clr-bg: #b3fcb2; */
+  --clr-bg: #a4f7cf;
+  --clr-primary: #114b5f;
+  --clr-text: #000;
+  --clr-white: #fff;
+
+  --transition: all 500ms ease;
+
+  --container-width-lg: 85%;
+  --container-width-md: 75%;
+  --container-widht-sm: 90%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0;
+  border: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: var(--clr-text);
+}
+
+section {
+  margin-top: 4rem;
+}
+
+section h4 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 160%;
+}
+
+img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+a {
+  transition: var(--transition);
+  color: var(--clr-text);
+}
+a:hover {
+  color: var(--clr-white);
+}
+
+.wrapper {
+  width: var(--container-width-lg);
+  margin: 0 auto;
+}
+
+.cta {
+  width: max-content;
+  display: inline-block;
+  color: var(--clr-text);
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  border: 1px solid var(--clr-primary);
+  transition: var(--transition);
+  /* border-radius: 4px; */
+  background: transparent;
+
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.cta:hover {
+  background: var(--clr-primary);
+  color: var(--clr-white);
+  border-color: transparent;
+}
+
+.cta-primary {
+  background: var(--clr-primary);
+  color: var(--clr-white);
+}
+.cta-primary:hover {
+  border-color: var(--clr-primary);
+  background: #00707d;
+  border-color: transparent;
+}
+
+/* For tablet/medium devices */
+@media screen and (max-width: 1024px) {
+  .container {
+    width: var(--container-width-md);
+  }
+
+  section {
+    margin-top: 6rem;
+  }
+}
+/* For mobiles/small device */
+@media screen and (max-width: 600px) {
+  .container {
+    width: var(--container-width-sm);
+    margin: 0 1rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+  section h4 {
+    font-size: 1.9rem;
+  }
 }

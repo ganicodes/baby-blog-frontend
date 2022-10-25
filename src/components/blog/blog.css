@@ -1,0 +1,56 @@
+.blog {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.blog--image {
+  width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+.blog--image img {
+  width: 100%;
+  height: 300px;
+}
+
+.blog--credits {
+  margin: 1rem 0;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+.blog--credits img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+}
+.blog--user-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.blog--uploaded-date {
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+.blog--user-actions {
+  font-size: 2.2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--clr-primary);
+}
+.blog--user-actions ion-icon {
+  cursor: pointer;
+}
+.blog--user-actions ion-icon:hover {
+  color: var(--clr-text);
+}
+
+.blog--description {
+  text-align: justify;
+  line-height: 30px;
+}

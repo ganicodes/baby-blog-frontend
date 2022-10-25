@@ -1,0 +1,15 @@
+.wrapper--singlePost {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.wrapper--blog {
+  flex: 3;
+}
+.wrapper--similiar-posts {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
