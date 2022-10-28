@@ -44,6 +44,11 @@
   border-radius: 0;
   width: 100%;
 }
+.cta--auth:disabled {
+  border: 0;
+  background: rgb(163, 204, 202);
+  cursor: not-allowed;
+}
 
 .wrapper--auth span {
   font-size: 0.8rem;

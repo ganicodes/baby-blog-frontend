@@ -38,7 +38,7 @@ const SimiliarPost = () => {
         <div className='similiar-post--container'>
             <span>Other posts based on your interest</span>
             {posts.map((post) => (
-                <div className="similiar-post--card">
+                <div key={post.id} className="similiar-post--card">
                     <img src={post.image} alt="" />
                     <h3>{post.title}</h3>
                     <button className="cta cta--post">Read More</button>

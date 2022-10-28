@@ -16,17 +16,13 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
-        </Routes>
-        <Routes>
+
           <Route exact path="/login" element={<Login />} />
-        </Routes>
-        <Routes>
+
           <Route exact path="/signup" element={<Signup />} />
-        </Routes>
-        <Routes>
+
           <Route exact path="/post/:id" element={<SinglePost />} />
-        </Routes>
-        <Routes>
+
           <Route exact path="/write" element={<Write />} />
         </Routes>
       </Router >
