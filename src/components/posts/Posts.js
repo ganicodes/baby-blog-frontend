@@ -4,18 +4,23 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 
 const Posts = () => {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const location = useLocation()
     const cat = location.search.split("=")[1];
 
     const [posts, setPosts] = useState([]);
 
+    const getText = (html) => {
+        const doc = new DOMParser().parseFromString(html, "text/html")
+        return doc.body.textContent
+    }
+
     useEffect(() => {
         const getAllPosts = async () => {
             try {
-                const response = cat ? await axios.get(`http://localhost:8000/api/posts?category=${cat}`)
-                    : await axios.get(`http://localhost:8000/api/posts/`);
+                const response = cat ? await axios.get(`/posts?category=${cat}`)
+                    : await axios.get(`/posts/`);
 
                 // console.log(response.data)
                 setPosts(response.data);
@@ -27,8 +32,6 @@ const Posts = () => {
         getAllPosts();
     }, [cat])
 
-
-
     return (
 
         <div className="wrapper">
@@ -38,7 +41,7 @@ const Posts = () => {
                         <div className="post" key={post._id}>
                             <div className="post--img">
                                 <Link to={`/post/${post._id}`} >
-                                    <img src={post.photo} alt="post" />
+                                    {post.photo ? <img src={`../images/${post.photo}`} alt="post" /> : <img src="https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="post" />}
                                 </Link>
                             </div>
                             <div className="post--content">
@@ -46,11 +49,9 @@ const Posts = () => {
                                     <Link to={`/post/${post._id}`} >
                                         <h1 className='post--title'>{post.title}</h1>
                                     </Link>
-                                    {/* {post.categories.map((category) => (
-                                        <span className='post--category'>{category} </span>
-                                    ))} */}
+                                    <span key={post._id} className='post--category'>{post.categories} </span>
                                 </div>
-                                <p>{post.desc}</p>
+                                <div>{getText(post.desc).substring(0, 150).concat("...")}</div>
                                 <button className="cta cta--post" onClick={() => { navigate(`/post/${post._id}`) }}>Read More</button>
                             </div>
                         </div>

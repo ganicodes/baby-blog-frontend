@@ -1,47 +1,46 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './similiarPost.css'
 
-const SimiliarPost = () => {
-    const posts = [
-        {
-            id: 1,
-            title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatibus accusantium praesentium suscipit ex? Consequuntur ullam expedita modi, obcaecati, voluptatem minus dignissimos, aliquid enim dolorum id amet nesciunt deleniti quasi!",
-            category: "Technology",
-            image: "https://images.pexels.com/photos/3695297/pexels-photo-3695297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
+const SimiliarPost = ({ id }) => {
+    const navigate = useNavigate();
 
-        {
-            id: 2,
-            title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatibus accusantium praesentium suscipit ex? Consequuntur ullam expedita modi, obcaecati, voluptatem minus dignissimos, aliquid enim dolorum id amet nesciunt deleniti quasi!",
-            category: "Arts",
-            image: "https://images.pexels.com/photos/3194523/pexels-photo-3194523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
-        {
-            id: 5,
-            title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatibus accusantium praesentium suscipit ex? Consequuntur ullam expedita modi, obcaecati, voluptatem minus dignissimos, aliquid enim dolorum id amet nesciunt deleniti quasi!",
-            category: "Science, Technology",
-            image: "https://images.pexels.com/photos/3695297/pexels-photo-3695297.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
+    const [posts, setPosts] = useState([]);
+    const [cat, setCat] = useState("")
 
-        {
-            id: 4,
-            title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatibus accusantium praesentium suscipit ex? Consequuntur ullam expedita modi, obcaecati, voluptatem minus dignissimos, aliquid enim dolorum id amet nesciunt deleniti quasi!",
-            category: "Food",
-            image: "https://images.pexels.com/photos/3194523/pexels-photo-3194523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        },
-    ]
+    useEffect(() => {
+        const getCategoryOfCurrentPost = async () => {
+            try {
+                const { data } = await axios.get(`/posts/${id}`);
+                setCat(data.post.categories)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const getPost = async () => {
+            try {
+                const { data } = await axios.get(`/posts/?category=${cat}`);
+                setPosts(data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        getCategoryOfCurrentPost();
+        getPost();
+    }, [id, cat])
+
+
     return (
         <div className='similiar-post--container'>
             <span>Other posts based on your interest</span>
-            {posts.map((post) => (
-                <div key={post.id} className="similiar-post--card">
-                    <img src={post.image} alt="" />
+            {posts?.map((post) => (
+                <div key={post._id} className="similiar-post--card">
+                    {/* <img src={post.photo} alt="" /> */}
+                    {post.photo ? <img src={`../images/${post.photo}`} alt="post" /> : <img src="https://images.pexels.com/photos/1591056/pexels-photo-1591056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="post" />}
                     <h3>{post.title}</h3>
-                    <button className="cta cta--post">Read More</button>
+                    <button className="cta cta--post" onClick={() => { navigate(`/post/${post._id}`) }}>Read More</button>
                 </div>
             ))}
         </div>

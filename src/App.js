@@ -9,11 +9,13 @@ import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import SinglePost from './pages/singlePost/SinglePost';
 import Write from './pages/write/Write';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
 

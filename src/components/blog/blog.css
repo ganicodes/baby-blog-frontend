@@ -53,4 +53,8 @@
 .blog--description {
   text-align: justify;
   line-height: 30px;
+  margin: 3rem auto;
+}
+.blog--description h1 {
+  margin: 2rem 0;
 }

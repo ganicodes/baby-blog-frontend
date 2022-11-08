@@ -16,7 +16,7 @@ const Login = () => {
         dispatch({ type: "LOGIN_START" });
 
         try {
-            const response = await axios.post("http://localhost:8000/api/auth/login", { email: emailRef.current.value, password: passwordRef.current.value })
+            const response = await axios.post("/auth/login", { email: emailRef.current.value, password: passwordRef.current.value }, { withCredentials: false })
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
             navigate("/")
         } catch (error) {
@@ -25,7 +25,6 @@ const Login = () => {
     }
 
     // console.log(user.userdetails);
-    console.log(emailRef.current);
     return (
         <div className="auth--page">
             <div className='wrapper--auth'>
