@@ -5,6 +5,8 @@ import { AuthContext } from '../../context/authContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import parser from 'html-react-parser'
 
+const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_API_URL })
+
 const Blog = ({ id }) => {
     const navigate = useNavigate();
     const [post, setPost] = useState([]);
@@ -12,7 +14,7 @@ const Blog = ({ id }) => {
     useEffect(() => {
         const getPost = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:8000/api/posts/${id}`);
+                const { data } = await axiosInstance.get(`/posts/${id}`);
                 setPost(data.post);
             } catch (error) {
                 console.error(error);
@@ -27,7 +29,7 @@ const Blog = ({ id }) => {
         navigate("/write", { state: post });
     }
     const handleDelete = async () => {
-        const { data } = await axios.delete(`/posts/${post._id}`);
+        const { data } = await axiosInstance.delete(`/posts/${post._id}`);
         console.log(data);
         navigate("/");
     }

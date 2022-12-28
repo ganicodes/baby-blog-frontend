@@ -2,27 +2,13 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './auth.css'
+
+const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_API_URL })
+
 const Signup = () => {
-    // const [name, setName] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [confirmPassword, setConfirmPassword] = useState("");
-
-    // const navigate = useNavigate()
-    // const handleSignup = async (e) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         const response = await axios.post("http://localhost:8000/api/auth/signup/",
-    //             { name, email, password });
-    //         // console.log(response.data);
-    //         response.data && navigate("/login");
-    //     } catch (error) {
-    //         console.log(error.message)
-    //     }
-    // }
-
-    const [credentials, setCredentials] = useState({ name: "", email: "", password: "", confirmPassword: "" });
+    const [credentials, setCredentials] = useState(
+        { name: "", email: "", password: "", confirmPassword: "" }
+    );
 
 
     const navigate = useNavigate()
@@ -30,7 +16,7 @@ const Signup = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:8000/api/auth/signup/",
+            const response = await axiosInstance.post("/auth/signup/",
                 { name: credentials.name, email: credentials.email, password: credentials.password });
             // console.log(response.data);
             response.data && navigate("/login");

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './similiarPost.css'
 
+const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_API_URL })
+
 const SimiliarPost = ({ id }) => {
     const navigate = useNavigate();
 
@@ -12,7 +14,7 @@ const SimiliarPost = ({ id }) => {
     useEffect(() => {
         const getCategoryOfCurrentPost = async () => {
             try {
-                const { data } = await axios.get(`/posts/${id}`);
+                const { data } = await axiosInstance.get(`/posts/${id}`);
                 setCat(data.post.categories)
             } catch (error) {
                 console.error(error);
@@ -21,7 +23,7 @@ const SimiliarPost = ({ id }) => {
 
         const getPost = async () => {
             try {
-                const { data } = await axios.get(`/posts/?category=${cat}`);
+                const { data } = await axiosInstance.get(`/posts/?category=${cat}`);
                 setPosts(data);
             } catch (error) {
                 console.error(error);

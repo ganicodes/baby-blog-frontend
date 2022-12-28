@@ -3,6 +3,8 @@ import './posts.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 
+const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_API_URL })
+
 const Posts = () => {
     const navigate = useNavigate();
 
@@ -19,8 +21,8 @@ const Posts = () => {
     useEffect(() => {
         const getAllPosts = async () => {
             try {
-                const response = cat ? await axios.get(`/posts?category=${cat}`)
-                    : await axios.get(`/posts/`);
+                const response = cat ? await axiosInstance.get(`/posts?category=${cat}`)
+                    : await axiosInstance.get(`/posts/`);
 
                 // console.log(response.data)
                 setPosts(response.data);

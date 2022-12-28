@@ -3,6 +3,9 @@ import React, { useContext, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext/AuthContext'
 import './auth.css'
+
+const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_API_URL })
+
 const Login = () => {
     const navigate = useNavigate();
     const { dispatch, isFetching } = useContext(AuthContext);
@@ -16,7 +19,7 @@ const Login = () => {
         dispatch({ type: "LOGIN_START" });
 
         try {
-            const response = await axios.post("/auth/login", { email: emailRef.current.value, password: passwordRef.current.value }, { withCredentials: false })
+            const response = await axiosInstance.post("/auth/login", { email: emailRef.current.value, password: passwordRef.current.value }, { withCredentials: false })
             dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
             navigate("/")
         } catch (error) {

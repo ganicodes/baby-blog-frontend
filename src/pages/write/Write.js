@@ -5,11 +5,11 @@ import './write.css'
 import axios from 'axios'
 import { useNavigate, useLocation } from 'react-router-dom';
 
+const axiosInstance = axios.create({ baseURL: process.env.REACT_APP_API_URL })
 
 const Write = () => {
     const navigate = useNavigate();
     const state = useLocation().state;
-    // console.log(state)
     const [description, setDescription] = useState(state?.desc || "");
 
     const [file, setFile] = useState(null);
@@ -20,13 +20,6 @@ const Write = () => {
         author: JSON.parse(localStorage.getItem("user")).userdetails.name || "unknown"
     })
 
-    // console.log(JSON.parse(localStorage.getItem("user")).userdetails.name)
-
-    // const getText = (html) => {
-    //     const doc = new DOMParser().parseFromString(html, "text/html")
-    //     return doc.body.textContent
-    // }
-
     const onChange = (e) => {
         setNewBlog({ ...newBlog, [e.target.name]: e.target.value });
     }
@@ -36,7 +29,7 @@ const Write = () => {
         try {
             const formData = new FormData();
             formData.append("file", file);
-            const { data } = await axios.post("/upload", formData);
+            const { data } = await axiosInstance.post("/upload", formData);
             // console.log(data)
             return data.filePath;
         } catch (error) {
@@ -52,13 +45,13 @@ const Write = () => {
         // const newDesc = getText(description);
 
         try {
-            const { data } = state ? await axios.put(`/posts/${state._id}`, {
+            const { data } = state ? await axiosInstance.put(`/posts/${state._id}`, {
                 title: newBlog.title,
                 desc: description,
                 categories: newBlog.category,
                 photo: file ? imageURL : "",
                 author: newBlog.author
-            }) : await axios.post("/posts", {
+            }) : await axiosInstance.post("/posts", {
                 title: newBlog.title,
                 desc: description,
                 categories: newBlog.category,
